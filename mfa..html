@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MFa code generator</title>
+  <style>
+    body {
+      background-color: #fb0303;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .input-container {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1100fc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .input-container input {
+      font-size: 16px;
+      padding: 10px;
+      width: 300px;
+    }
+
+    .input-container .name-input {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-container .random-number {
+      font-size: 24px;
+      padding: 5px;
+      border: none;
+      background-color: #f9f9f9;
+      color: #333;
+      border-radius: 5px;
+      width: 200px;
+      text-align: center;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MFA code generator</h1>
+
+    <div id="inputContainer">
+      <div class="input-container">
+        <input type="text" class="name-input" placeholder="email" autocomplete="off">
+        <input type="text" class="random-number" readonly>
+      </div>
+    </div>
+
+    <button onclick="addNewInput()">Adaugă câmp</button>
+    <button onclick="generateRandomNumbers()">Generate</button>
+  </div>
+
+  <script>
+    function addNewInput() {
+      const inputContainer = document.getElementById('inputContainer');
+      const newInput = document.createElement('div');
+      newInput.className = 'input-container';
+      newInput.innerHTML = `
+        <input type="text" class="name-input" placeholder="email" autocomplete="off">
+        <input type="text" class="random-number" readonly>
+      `;
+      inputContainer.appendChild(newInput);
+    }
+
+    function generateRandomNumbers() {
+      const nameInputs = document.getElementsByClassName('name-input');
+      const randomNumbers = document.getElementsByClassName('random-number');
+
+      for (let i = 0; i < nameInputs.length; i++) {
+        const name = nameInputs[i].value;
+        const randomNumber = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+        randomNumbers[i].value = randomNumber;
+      }
+    }
+    setInterval(generateRandomNumbers, 30000);
+  </script>
+</body>
+</html>
